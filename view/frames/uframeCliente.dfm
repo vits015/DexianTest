@@ -2,7 +2,8 @@ object frameCliente: TframeCliente
   Left = 0
   Top = 0
   Width = 640
-  Height = 443
+  Height = 210
+  Align = alClient
   Color = clWhite
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -14,7 +15,7 @@ object frameCliente: TframeCliente
   TabOrder = 0
   object pnlCampos: TPanel
     Left = 0
-    Top = 233
+    Top = 0
     Width = 640
     Height = 210
     Align = alClient
@@ -22,9 +23,8 @@ object frameCliente: TframeCliente
     Color = 16316664
     ParentBackground = False
     TabOrder = 0
-    ExplicitLeft = -3
-    ExplicitTop = 128
-    ExplicitHeight = 200
+    ExplicitLeft = 240
+    ExplicitHeight = 383
     object lblClienteID: TLabel
       Left = 16
       Top = 16
@@ -98,86 +98,6 @@ object frameCliente: TframeCliente
       Height = 21
       Date = 45879.000000000000000000
       Time = 0.363966412034642400
-      TabOrder = 4
-    end
-  end
-  object pnlConsulta: TPanel
-    Left = 0
-    Top = 0
-    Width = 640
-    Height = 233
-    Align = alTop
-    Enabled = False
-    TabOrder = 1
-    ExplicitTop = 2
-    object Label1: TLabel
-      Left = 16
-      Top = 52
-      Width = 53
-      Height = 13
-      Caption = 'Cliente ID:'
-    end
-    object Label2: TLabel
-      Left = 16
-      Top = 80
-      Width = 33
-      Height = 13
-      Caption = 'Nome:'
-    end
-    object Label3: TLabel
-      Left = 16
-      Top = 113
-      Width = 46
-      Height = 13
-      Caption = 'Telefone:'
-    end
-    object Label4: TLabel
-      Left = 16
-      Top = 144
-      Width = 34
-      Height = 13
-      Caption = 'E-mail:'
-    end
-    object Label5: TLabel
-      Left = 16
-      Top = 176
-      Width = 92
-      Height = 13
-      Caption = 'Data de Cadastro:'
-    end
-    object dbedtClienteID: TDBEdit
-      Left = 116
-      Top = 50
-      Width = 80
-      Height = 21
-      TabOrder = 0
-    end
-    object dbedtNome: TDBEdit
-      Left = 116
-      Top = 77
-      Width = 300
-      Height = 21
-      TabOrder = 1
-    end
-    object dbedtTelefone: TDBEdit
-      Left = 116
-      Top = 110
-      Width = 116
-      Height = 21
-      TabOrder = 2
-    end
-    object dbedtEmail: TDBEdit
-      Left = 116
-      Top = 141
-      Width = 300
-      Height = 21
-      TabOrder = 3
-    end
-    object dbedtDataCadastro: TDBEdit
-      Left = 116
-      Top = 173
-      Width = 300
-      Height = 21
       TabOrder = 4
     end
   end

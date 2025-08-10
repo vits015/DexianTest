@@ -20,23 +20,11 @@ type
     edtEmail: TEdit;
     lblDataCadastro: TLabel;
     dtpDataCadastro: TDateTimePicker;
-    pnlConsulta: TPanel;
-    dbedtClienteID: TDBEdit;
-    Label1: TLabel;
-    Label2: TLabel;
-    Label3: TLabel;
-    Label4: TLabel;
-    Label5: TLabel;
-    dbedtNome: TDBEdit;
-    dbedtTelefone: TDBEdit;
-    dbedtEmail: TDBEdit;
-    dbedtDataCadastro: TDBEdit;
   private
     { Private declarations }
   public
     { Public declarations }
     function GetCliente: TCliente;
-    procedure LinkFields(DataSource: TDataSource);
   end;
 
 var
@@ -56,19 +44,5 @@ begin
   Result.Telefone := edtTelefone.Text;
   Result.Email := edtEmail.Text;
   Result.DataCadastro := dtpDataCadastro.Date;
-end;
-procedure TframeCliente.LinkFields(DataSource: TDataSource);
-begin
-  dbedtClienteID.DataSource := DataSource;
-  dbedtNome.DataSource := DataSource;
-  dbedtTelefone.DataSource := DataSource;
-  dbedtEmail.DataSource := DataSource;
-  dbedtDataCadastro.DataSource := DataSource;
-  dbedtClienteID.DataField := 'ClienteID';
-  dbedtNome.DataField := 'Nome';
-  dbedtTelefone.DataField := 'Telefone';
-  dbedtEmail.DataField := 'Email';
-  dbedtDataCadastro.DataField := 'DataCadastro';
-
 end;
 end.

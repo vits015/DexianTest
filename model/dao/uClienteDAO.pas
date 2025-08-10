@@ -33,9 +33,9 @@ begin
   AMemTable.Close;
   AMemTable.FieldDefs.Clear;
   AMemTable.FieldDefs.Add('ClienteID', ftInteger);
-  AMemTable.FieldDefs.Add('Nome', ftString, 100);
+  AMemTable.FieldDefs.Add('Nome', ftString, 40);
   AMemTable.FieldDefs.Add('Telefone', ftString, 20);
-  AMemTable.FieldDefs.Add('Email', ftString, 100);
+  AMemTable.FieldDefs.Add('Email', ftString, 30);
   AMemTable.FieldDefs.Add('DataCadastro', ftDateTime);
   AMemTable.CreateDataSet;
   AMemTable.Open;
@@ -89,7 +89,7 @@ begin
           Q.ParamByName('Nome').AsString := '%' + ACliente.Nome + '%';
         end;
 
-        if ACliente.Telefone <> '(  )     -    ' then
+        if (ACliente.Telefone <> '(  )     -    ') and (ACliente.Telefone<> EmptyStr) then
         begin
           if not WhereAdded then
           begin

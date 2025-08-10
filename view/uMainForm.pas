@@ -30,18 +30,19 @@ implementation
 uses ufrmConsulta;
 
 procedure TfrmPrincipal.btnCadastroFuncionariosClick(Sender: TObject);
+var
+  frmConsultaPedido: TfrmConsulta;
 begin
-  if not Assigned(frmConsulta) then
-    Application.CreateForm(TfrmConsulta, frmConsulta);
-  frmConsulta.ShowModal;
+  frmConsultaPedido := TfrmConsulta.Create(self, ePedido);
+  frmConsultaPedido.ShowModal;
 end;
 
 procedure TfrmPrincipal.btnCadastroClientesClick(Sender: TObject);
 var
-  ConsultaPadrao:TfrmConsulta;
+  frmConsultaCliente:TfrmConsulta;
 begin
-  ConsultaPadrao := TfrmConsulta.Create(self, eCliente);
-  ConsultaPadrao.ShowModal;
+  frmConsultaCliente := TfrmConsulta.Create(self, eCliente);
+  frmConsultaCliente.ShowModal;
 end;
 
 end.

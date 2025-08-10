@@ -3,7 +3,7 @@ object frmConsulta: TfrmConsulta
   Top = 0
   Caption = 'Consulta '
   ClientHeight = 444
-  ClientWidth = 691
+  ClientWidth = 917
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -13,12 +13,13 @@ object frmConsulta: TfrmConsulta
   Position = poScreenCenter
   TextHeight = 15
   object pnlBotoes: TPanel
-    Left = 574
+    Left = 800
     Top = 0
     Width = 117
     Height = 444
     Align = alRight
     TabOrder = 0
+    ExplicitLeft = 574
     object btnFiltrar: TBitBtn
       Left = 11
       Top = 15
@@ -47,7 +48,7 @@ object frmConsulta: TfrmConsulta
       OnClick = btnIncluirClick
     end
     object btnAlterar: TBitBtn
-      Left = 11
+      Left = 6
       Top = 133
       Width = 95
       Height = 33
@@ -87,14 +88,15 @@ object frmConsulta: TfrmConsulta
   object pnlCentral: TPanel
     Left = 0
     Top = 0
-    Width = 574
+    Width = 800
     Height = 444
     Align = alClient
     TabOrder = 1
+    ExplicitWidth = 574
     object dbgDados: TDBGrid
       Left = 1
       Top = 1
-      Width = 572
+      Width = 798
       Height = 442
       Align = alClient
       TabOrder = 0

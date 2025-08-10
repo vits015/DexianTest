@@ -13,7 +13,9 @@ uses
   uFuncoesGenericas in 'uFuncoesGenericas.pas',
   ufrmManutencao in 'view\ufrmManutencao.pas' {frmManutencao},
   uTypes in 'utils\uTypes.pas',
-  uframeCliente in 'view\frames\uframeCliente.pas' {frameCliente: TFrame};
+  uframeCliente in 'view\frames\uframeCliente.pas' {frameCliente: TFrame},
+  uPedidoController in 'controller\uPedidoController.pas',
+  uframePedido in 'view\frames\uframePedido.pas' {framePedido: TFrame};
 
 {$R *.res}
 

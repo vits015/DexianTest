@@ -3,7 +3,7 @@ object frmManutencao: TfrmManutencao
   Top = 0
   BorderStyle = bsDialog
   Caption = 'Manuten'#231#227'o'
-  ClientHeight = 267
+  ClientHeight = 503
   ClientWidth = 680
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
@@ -18,7 +18,7 @@ object frmManutencao: TfrmManutencao
     Left = 0
     Top = 0
     Width = 568
-    Height = 267
+    Height = 503
     Align = alClient
     TabOrder = 0
     ExplicitLeft = -2
@@ -28,7 +28,7 @@ object frmManutencao: TfrmManutencao
     Left = 568
     Top = 0
     Width = 112
-    Height = 267
+    Height = 503
     Align = alRight
     TabOrder = 1
     ExplicitLeft = 574
@@ -78,13 +78,12 @@ object frmManutencao: TfrmManutencao
         TabOrder = 1
         OnClick = btnRestaurarClick
         ExplicitLeft = 5
-        ExplicitTop = 77
       end
     end
     object btnOK: TBitBtn
       AlignWithMargins = True
       Left = 4
-      Top = 191
+      Top = 427
       Width = 104
       Height = 33
       Align = alBottom
@@ -99,7 +98,7 @@ object frmManutencao: TfrmManutencao
     object btnSair: TBitBtn
       AlignWithMargins = True
       Left = 4
-      Top = 230
+      Top = 466
       Width = 104
       Height = 33
       Align = alBottom

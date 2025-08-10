@@ -9,7 +9,7 @@ uses
   FireDAC.Stan.Intf, FireDAC.Stan.Option, FireDAC.Stan.Param,System.Generics.Collections,
   FireDAC.Stan.Error, FireDAC.DatS, FireDAC.Phys.Intf, FireDAC.DApt.Intf,
   FireDAC.Stan.Async, FireDAC.DApt, FireDAC.Comp.DataSet, uFuncoesGenericas, uCliente,
-  ufrmManutencao, Vcl.Buttons, uTypes;
+  ufrmManutencao, Vcl.Buttons, uTypes, uPedidoController, uPedido;
 
 type
 
@@ -35,7 +35,7 @@ type
     FClienteController: TClienteController;
     mtDados: TFDMemTable;
     dsDados: TDataSource;
-//    FPedidoController: TPedidoController;
+    FPedidoController: TPedidoController;
     procedure ListarTodos;
   protected
     procedure setHandleObject(AObjectName: TEntityType);
@@ -58,38 +58,59 @@ begin
   FEntityType := AObjectName;
   case FEntityType of
     eCliente: FClienteController := TClienteController.Create;
-//    onPedido: FPedidoController := TPedidoController.Create;
+    ePedido: FPedidoController := TPedidoController.Create;
   end;
 end;
 
 procedure TfrmConsulta.btnAlterarClick(Sender: TObject);
 var
   Cliente:TCliente;
+  Pedido:TPedido;
 begin
+  if mtDados.IsEmpty then
+  begin
+    Application.MessageBox('É Necessário selecionar um Cliente!', 'Aviso', MB_OK or MB_ICONWARNING);
+    Exit;
+  end;
+
   try
     case FEntityType of
       eCliente:
       begin
-        if mtDados.IsEmpty then
-        begin
-          Application.MessageBox('É Necessário selecionar um Cliente!', 'Aviso', MB_OK or MB_ICONWARNING);
-          Exit;
-        end;
         Cliente := TCliente.Create;
         Cliente.ClienteID := mtDados.FieldByName('ClienteID').AsInteger;
         Cliente.Nome := mtDados.FieldByName('Nome').AsString;
         Cliente.Email := mtDados.FieldByName('Email').AsString;
         Cliente.Telefone := mtDados.FieldByName('Telefone').AsString;
         Cliente.DataCadastro := mtDados.FieldByName('DataCadastro').AsDateTime;
+
         frmManutencao := TFrmManutencao.Create(self, FEntityType, fmUpdate, Cliente);
+        if (frmManutencao.ShowModal = mrOk) then
+        begin
+          if (FClienteController.UpdateCliente(Cliente)) then
+            Application.MessageBox(PChar('O Cliente ' + frmManutencao.ClienteResult.ClienteID.ToString + ' foi alterado com sucesso!'), 'Sucesso', MB_OK or MB_ICONINFORMATION)
+          else
+            Application.MessageBox(PChar('Erro ao alterar o Cliente'), 'Erro', MB_OK or MB_ICONERROR);
+        end;
       end;
-    end;
-    if (frmManutencao.ShowModal = mrOk) then
-    begin
-      if (FClienteController.UpdateCliente(frmManutencao.ClienteResult)) then
-        Application.MessageBox(PChar('O Cliente ' + frmManutencao.ClienteResult.ClienteID.ToString + ' foi alterado com sucesso!'), 'Sucesso', MB_OK or MB_ICONINFORMATION)
-      else
-        Application.MessageBox(PChar('Erro ao alterar o Cliente'), 'Erro', MB_OK or MB_ICONERROR);
+      ePedido:
+      begin
+        Pedido := TPedido.Create;
+        Pedido.PedidoID := mtDados.FieldByName('PedidoID').AsInteger;
+        Pedido.Cliente.ClienteID := mtDados.FieldByName('ClienteID').AsInteger;
+        Pedido.DataPedido := mtDados.FieldByName('DataPedido').AsDateTime;
+        Pedido.ValorTotal := mtDados.FieldByName('ValorTotal').AsFloat;
+        Pedido.Observacao := mtDados.FieldByName('Observacao').AsString;
+
+        frmManutencao := TFrmManutencao.Create(self, FEntityType, fmUpdate, Pedido);
+        if (frmManutencao.ShowModal = mrOk) then
+        begin
+          if (FPedidoController.UpdatePedido(frmManutencao.PedidoResult)) then
+            Application.MessageBox(PChar('O Pedido ' + frmManutencao.PedidoResult.PedidoID.ToString + ' foi alterado com sucesso!'), 'Sucesso', MB_OK or MB_ICONINFORMATION)
+          else
+            Application.MessageBox(PChar('Erro ao alterar o Pedido'), 'Erro', MB_OK or MB_ICONERROR);
+        end;
+      end;
     end;
     ListarTodos;
   finally
@@ -126,6 +147,21 @@ begin
           Application.MessageBox('Erro ao excluir o Cliente', 'Erro', MB_OK or MB_ICONERROR);
       end;
     end;
+    ePedido:
+    begin
+      if mtDados.IsEmpty then
+      begin
+        Application.MessageBox('É Necessário selecionar um Pedido!', 'Aviso', MB_OK or MB_ICONWARNING);
+        Exit;
+      end;
+      if Application.MessageBox(PWideChar('Deseja realmente excluir o Pedido ' + mtDados.FieldByName('PedidoID').AsString), 'Confirmação', MB_YESNO or MB_ICONQUESTION) = IDYES then
+      begin
+        if (FPedidoController.DeletePedido(mtDados.FieldByName('PedidoID').AsInteger)) then
+          Application.MessageBox('Pedido excluído com sucesso!', 'Sucesso', MB_OK or MB_ICONINFORMATION)
+        else
+          Application.MessageBox('Erro ao excluir o Pedido', 'Erro', MB_OK or MB_ICONERROR);
+      end;
+    end;
   end;
   ListarTodos;
 end;
@@ -134,6 +170,7 @@ procedure TfrmConsulta.btnFiltrarClick(Sender: TObject);
 var
   frmManutencao:TFrmManutencao;
   Cliente: TCliente;
+  Pedido: TPedido;
 begin
   frmManutencao := TFrmManutencao.Create(self, FEntityType, fmFilter);
   try
@@ -145,6 +182,11 @@ begin
           Cliente := frmManutencao.ClienteResult;
           mtDados:=  FClienteController.GetClienteByIdMemTable(Cliente);
         end;
+        ePedido:
+        begin
+          Pedido:= frmManutencao.PedidoResult;
+          mtDados:= FPedidoController.GetPedidoByIdMemTable(Pedido);
+        end;
       end;
       dsDados.DataSet := mtDados;
       dbgDados.DataSource := dsDados;
@@ -155,8 +197,6 @@ begin
 end;
 
 procedure TfrmConsulta.btnIncluirClick(Sender: TObject);
-var
-  Cliente:TCliente;
 begin
   try
     frmManutencao := TFrmManutencao.Create(self, FEntityType, fmInsert);
@@ -165,15 +205,20 @@ begin
       case FEntityType of
         eCliente:
         begin
-          Cliente := frmManutencao.ClienteResult;
-          if (FClienteController.AddCliente(Cliente)) then
-            Application.MessageBox(PChar('O Cliente ' + Cliente.Nome + ' foi incluído com sucesso!'), 'Sucesso', MB_OK or MB_ICONINFORMATION)
+          if (FClienteController.AddCliente(frmManutencao.ClienteResult)) then
+            Application.MessageBox(PChar('O Cliente ' + frmManutencao.ClienteResult.Nome + ' foi incluído com sucesso!'), 'Sucesso', MB_OK or MB_ICONINFORMATION)
           else
             Application.MessageBox(PChar('Erro ao incluir o Cliente'), 'Erro', MB_OK or MB_ICONERROR);
         end;
+        ePedido:
+        begin
+          if (FPedidoController.AddPedido(frmManutencao.PedidoResult)) then
+            Application.MessageBox(PChar('O Pedido ' + frmManutencao.PedidoResult.PedidoID.ToString + ' foi incluído com sucesso!'), 'Sucesso', MB_OK or MB_ICONINFORMATION)
+          else
+            Application.MessageBox(PChar('Erro ao incluir o Pedido'), 'Erro', MB_OK or MB_ICONERROR);
       end;
     end;
-
+    end;
   finally
     frmManutencao.Free;
   end;
@@ -205,7 +250,10 @@ begin
       end;
     ePedido:
       begin
-
+        mtDados.Free;
+        mtDados:= FPedidoController.GetPedidosMemTable;
+        dsDados.DataSet := mtDados;
+        dbgDados.DataSource := dsDados;        
       end;
   else
     raise Exception.Create('Objeto não reconhecido!');
