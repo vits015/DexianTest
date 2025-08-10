@@ -11,8 +11,10 @@ type
     FConn: TFDConnection;
   public
     constructor Create(AConn: TFDConnection);
-    function Get(AClienteID: Integer): TObjectList<TCliente>;
+    function Get(ACliente: TCliente): TObjectList<TCliente>;
     procedure Post(ACliente: TCliente);
+    procedure Put(ACliente: TCliente);
+    procedure Delete(AId: Integer);
     procedure ClienteListToMemTable(AList: TObjectList<TCliente>; AMemTable: TFDMemTable);
   end;
 
@@ -51,22 +53,79 @@ begin
   end;
 end;
 
-function TClienteDAO.Get(AClienteID: Integer): TObjectList<TCliente>;
+function TClienteDAO.Get(ACliente: TCliente): TObjectList<TCliente>;
 var
   Q: TFDQuery;
   LCliente: TCliente;
+  WhereAdded: Boolean;
 begin
   Q := TFDQuery.Create(nil);
   try
-    try    
+    try
       Result := TObjectList<TCliente>.Create;
       Q.Connection := FConn;
-      Q.SQL.Text := 'SELECT ClienteID, Nome, Telefone, Email, DataCadastro FROM CLIENTES WHERE 1=1';
-      if AClienteID > 0 then
+      Q.SQL.Text := 'SELECT ClienteID, Nome, Telefone, Email, DataCadastro FROM CLIENTES';
+      WhereAdded := False;
+
+      // Monta WHERE dinamicamente conforme preenchimento dos campos
+      if (ACliente <> nil) then
       begin
-        Q.SQL.Add(' AND ClienteID = :ClienteID');
-        Q.ParamByName('ClienteID').AsInteger := AClienteID;
+        if ACliente.ClienteID > 0 then
+        begin
+          Q.SQL.Add('WHERE ClienteID = :ClienteID');
+          Q.ParamByName('ClienteID').AsInteger := ACliente.ClienteID;
+          WhereAdded := True;
+        end;
+
+        if ACliente.Nome <> '' then
+        begin
+          if not WhereAdded then
+          begin
+            Q.SQL.Add('WHERE Nome LIKE :Nome');
+            WhereAdded := True;
+          end
+          else
+            Q.SQL.Add('AND Nome LIKE :Nome');
+          Q.ParamByName('Nome').AsString := '%' + ACliente.Nome + '%';
+        end;
+
+        if ACliente.Telefone <> '(  )     -    ' then
+        begin
+          if not WhereAdded then
+          begin
+            Q.SQL.Add('WHERE Telefone = :Telefone');
+            WhereAdded := True;
+          end
+          else
+            Q.SQL.Add('AND Telefone = :Telefone');
+          Q.ParamByName('Telefone').AsString := ACliente.Telefone;
+        end;
+
+        if ACliente.Email <> '' then
+        begin
+          if not WhereAdded then
+          begin
+            Q.SQL.Add('WHERE Email LIKE :Email');
+            WhereAdded := True;
+          end
+          else
+            Q.SQL.Add('AND Email LIKE :Email');
+          Q.ParamByName('Email').AsString := '%'+ACliente.Email+'%';
+        end;
+
+//        if ACliente.DataCadastro > 0 then
+//        begin
+//          if not WhereAdded then
+//          begin
+//            Q.SQL.Add('WHERE DataCadastro = :DataCadastro');
+//            WhereAdded := True;
+//          end
+//          else
+//            Q.SQL.Add('AND DataCadastro = :DataCadastro');
+//          Q.ParamByName('DataCadastro').AsDateTime := ACliente.DataCadastro;
+//        end;
       end;
+
       Q.Open;
       Q.First;
       while not Q.Eof do
@@ -77,11 +136,11 @@ begin
         LCliente.Telefone := Q.FieldByName('Telefone').AsString;
         LCliente.Email := Q.FieldByName('Email').AsString;
         LCliente.DataCadastro := Q.FieldByName('DataCadastro').AsDateTime;
-        Result.Add(LCliente);      
-        Q.Next;      
-      end;    
+        Result.Add(LCliente);
+        Q.Next;
+      end;
     except
-      on E: Exception do        
+      on E: Exception do
         raise Exception.Create('Erro ao listar clientes: ' + E.Message);
     end;
   finally
@@ -108,6 +167,55 @@ begin
       begin        
         raise Exception.Create('Erro ao inserir cliente: ' + E.Message);
       end;
+    end;
+  finally
+    Q.Free;
+  end;
+end;
+
+procedure TClienteDAO.Put(ACliente: TCliente);
+var
+  Q: TFDQuery;
+begin
+  Q := TFDQuery.Create(nil);
+  try
+    try
+      Q.Connection := FConn;
+      Q.SQL.Text :=
+        'UPDATE CLIENTES SET ' +
+        'Nome = :Nome, ' +
+        'Telefone = :Telefone, ' +
+        'Email = :Email, ' +
+        'DataCadastro = :DataCadastro ' +
+        'WHERE ClienteID = :ClienteID';
+      Q.ParamByName('Nome').AsString := ACliente.Nome;
+      Q.ParamByName('Telefone').AsString := ACliente.Telefone;
+      Q.ParamByName('Email').AsString := ACliente.Email;
+      Q.ParamByName('DataCadastro').AsDateTime := ACliente.DataCadastro;
+      Q.ParamByName('ClienteID').AsInteger := ACliente.ClienteID;
+      Q.ExecSQL;
+    except
+      on E: Exception do
+        raise Exception.Create('Erro ao atualizar cliente: ' + E.Message);
+    end;
+  finally
+    Q.Free;
+  end;
+end;
+procedure TClienteDAO.Delete(AId: Integer);
+var
+  Q: TFDQuery;
+begin
+  Q := TFDQuery.Create(nil);
+  try
+    try 
+      Q.Connection := FConn;
+      Q.SQL.Text := 'DELETE FROM CLIENTES WHERE ClienteID = :ClienteID';
+      Q.ParamByName('ClienteID').AsInteger := AId;
+      Q.ExecSQL;
+    except
+      on E: Exception do
+        raise Exception.Create('Erro ao excluir cliente: ' + E.Message);
     end;
   finally
     Q.Free;

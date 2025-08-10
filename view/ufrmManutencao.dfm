@@ -3,7 +3,7 @@ object frmManutencao: TfrmManutencao
   Top = 0
   BorderStyle = bsDialog
   Caption = 'Manuten'#231#227'o'
-  ClientHeight = 270
+  ClientHeight = 267
   ClientWidth = 680
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
@@ -14,129 +14,102 @@ object frmManutencao: TfrmManutencao
   Position = poOwnerFormCenter
   RoundedCorners = rcOn
   TextHeight = 13
-  object Panel1: TPanel
+  object pnPrincipal: TPanel
     Left = 0
     Top = 0
-    Width = 564
-    Height = 270
+    Width = 568
+    Height = 267
     Align = alClient
     TabOrder = 0
+    ExplicitLeft = -2
+    ExplicitHeight = 399
   end
   object Panel2: TPanel
-    Left = 564
+    Left = 568
     Top = 0
-    Width = 116
-    Height = 270
+    Width = 112
+    Height = 267
     Align = alRight
     TabOrder = 1
+    ExplicitLeft = 574
+    ExplicitHeight = 399
     object Panel3: TPanel
       Left = 1
       Top = 1
-      Width = 114
-      Height = 136
+      Width = 110
+      Height = 192
       Align = alTop
       BevelOuter = bvNone
       TabOrder = 0
-      object Panel4: TPanel
+      ExplicitLeft = 6
+      ExplicitTop = 0
+      object pnNavigator: TPanel
         AlignWithMargins = True
         Left = 0
         Top = 0
-        Width = 114
-        Height = 64
+        Width = 110
+        Height = 73
         Margins.Left = 0
         Margins.Top = 0
         Margins.Right = 0
         Align = alTop
         BevelOuter = bvNone
         TabOrder = 0
-        object Button1: TButton
+        object DBNavigator: TDBNavigator
           AlignWithMargins = True
-          Left = 28
-          Top = 10
-          Width = 25
-          Height = 51
-          Margins.Left = 1
-          Margins.Top = 10
-          Margins.Right = 1
-          Align = alLeft
-          Caption = '<'
+          Left = 3
+          Top = 3
+          Width = 104
+          Height = 46
+          VisibleButtons = [nbFirst, nbPrior, nbNext, nbLast]
+          Align = alTop
           TabOrder = 0
         end
-        object Button2: TButton
-          AlignWithMargins = True
-          Left = 55
-          Top = 10
-          Width = 25
-          Height = 51
-          Margins.Left = 1
-          Margins.Top = 10
-          Margins.Right = 1
-          Align = alLeft
-          Caption = '>'
-          TabOrder = 1
-        end
-        object Button3: TButton
-          AlignWithMargins = True
-          Left = 1
-          Top = 10
-          Width = 25
-          Height = 51
-          Margins.Left = 1
-          Margins.Top = 10
-          Margins.Right = 1
-          Align = alLeft
-          Caption = '|<'
-          TabOrder = 2
-        end
-        object Button4: TButton
-          AlignWithMargins = True
-          Left = 82
-          Top = 10
-          Width = 25
-          Height = 51
-          Margins.Left = 1
-          Margins.Top = 10
-          Margins.Right = 1
-          Align = alLeft
-          Caption = '>|'
-          TabOrder = 3
-        end
       end
-      object BitBtn1: TBitBtn
+      object btnRestaurar: TBitBtn
         AlignWithMargins = True
         Left = 3
-        Top = 77
-        Width = 108
+        Top = 86
+        Width = 104
         Height = 36
         Margins.Top = 10
         Align = alTop
         Caption = '&Restaurar'
         TabOrder = 1
+        OnClick = btnRestaurarClick
+        ExplicitLeft = 5
+        ExplicitTop = 77
       end
     end
-    object BitBtn2: TBitBtn
+    object btnOK: TBitBtn
       AlignWithMargins = True
       Left = 4
-      Top = 194
-      Width = 108
+      Top = 191
+      Width = 104
       Height = 33
       Align = alBottom
       Caption = '&OK'
       Kind = bkOK
       NumGlyphs = 2
       TabOrder = 2
+      OnClick = btnOKClick
+      ExplicitLeft = 6
+      ExplicitTop = 194
     end
-    object BitBtn3: TBitBtn
+    object btnSair: TBitBtn
       AlignWithMargins = True
       Left = 4
-      Top = 233
-      Width = 108
+      Top = 230
+      Width = 104
       Height = 33
       Align = alBottom
       Caption = '&Sair'
       Kind = bkAbort
       NumGlyphs = 2
       TabOrder = 1
+      OnClick = btnSairClick
+      ExplicitTop = 233
+      ExplicitWidth = 108
     end
   end
 end

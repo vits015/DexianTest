@@ -17,7 +17,11 @@ type
     function GetClientes: TObjectList<TCliente>;
     function GetClientesMemTable: TFDMemTable;
     function GetClienteById(AId: Integer): TCliente;
-    procedure AddCliente(ACliente: TCliente);
+    function GetClienteByIdMemTable(ACliente: TCliente): TFDMemTable;
+    function AddCliente(ACliente: TCliente): Boolean;
+    function UpdateCliente(ACliente: TCliente): Boolean;
+    function DeleteCliente(AId: Integer): Boolean;
+
     // procedure UpdateCliente(ACliente: TClienteModel);
     // procedure DeleteCliente(AId: Integer);
   end;
@@ -39,7 +43,7 @@ end;
 
 function TClienteController.GetClientes: TObjectList<TCliente>;
 begin
-  Result := FCLienteDAO.Get(0); // 0 para obter todos os clientes
+  Result := FCLienteDAO.Get(nil); // nil para obter todos os clientes
 end;
 
 function TClienteController.GetClientesMemTable: TFDMemTable;
@@ -49,26 +53,58 @@ begin
 end;
 
 function TClienteController.GetClienteById(AId: Integer): TCliente;
-begin    
-  Result := FCLienteDAO.Get(AId).First;
+var
+  LCliente:TCliente;
+begin
+  LCliente := TCliente.Create;
+  LCliente.ClienteID := Aid;
+  Result := FCLienteDAO.Get(LCliente).First;
 end;
 
-procedure TClienteController.AddCliente(ACliente: TCliente);
+function TClienteController.GetClienteByIdMemTable(ACliente: TCliente): TFDMemTable;
+begin
+  Result := TFDMemTable.Create(nil);
+  FClienteDAO.ClienteListToMemTable(FCLienteDAO.Get(ACliente), Result);
+end;
+
+function TClienteController.AddCliente(ACliente: TCliente): Boolean;
 begin
   if Assigned(ACliente) then
-    FCLienteDAO.Post(ACliente)
-    else
-      raise Exception.Create('Cliente nulo');
+  begin
+    FCLienteDAO.Post(ACliente);
+    Result := True;
+  end
+  else
+  begin
+    Result := False;
+    raise Exception.Create('Cliente nulo');
+  end;
 end;
-
-// procedure TClienteController.UpdateCliente(ACliente: TClienteModel);
-// begin
-//   FCLienteDAO.Put(ACliente);
-// end;
-
-// procedure TClienteController.DeleteCliente(AId: Integer);
-// begin
-//   FCLienteDAO.Delete(AId);
-// end;
+function TClienteController.UpdateCliente(ACliente: TCliente): Boolean;
+begin
+  if Assigned(ACliente) then
+  begin
+    FCLienteDAO.Put(ACliente);
+    Result := True;
+  end
+  else
+  begin
+    Result := False;
+    raise Exception.Create('Cliente nulo');
+  end;
+end;
+function TClienteController.DeleteCliente(AId: Integer): Boolean;
+begin
+  if AId > 0 then
+  begin
+    FCLienteDAO.Delete(AId);
+    Result := True;
+  end
+  else
+  begin
+    Result := False;
+    raise Exception.Create('ID do Cliente inválido');
+  end;
+end;
 
 end.
