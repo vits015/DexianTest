@@ -27,19 +27,20 @@ implementation
 
 {$R *.dfm}
 
-uses uConsultaPadrao;
+uses ufrmConsulta;
 
 procedure TfrmPrincipal.btnCadastroFuncionariosClick(Sender: TObject);
 begin
-  Application.CreateForm(TfrmConsultaPadrao, frmConsultaPadrao);
-  frmConsultaPadrao.ShowModal;
+  if not Assigned(frmConsulta) then
+    Application.CreateForm(TfrmConsulta, frmConsulta);
+  frmConsulta.ShowModal;
 end;
 
 procedure TfrmPrincipal.btnCadastroClientesClick(Sender: TObject);
 var
-  ConsultaPadrao:TfrmConsultaPadrao;
+  ConsultaPadrao:TfrmConsulta;
 begin
-  ConsultaPadrao := TfrmConsultaPadrao.Create(self, onCliente);
+  ConsultaPadrao := TfrmConsulta.Create(self, eCliente);
   ConsultaPadrao.ShowModal;
 end;
 

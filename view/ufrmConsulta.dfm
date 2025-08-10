@@ -1,9 +1,9 @@
-object frmConsultaPadrao: TfrmConsultaPadrao
+object frmConsulta: TfrmConsulta
   Left = 0
   Top = 0
   Caption = 'Consulta'
-  ClientHeight = 400
-  ClientWidth = 700
+  ClientHeight = 444
+  ClientWidth = 691
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -15,7 +15,7 @@ object frmConsultaPadrao: TfrmConsultaPadrao
   object pnlTopo: TPanel
     Left = 0
     Top = 0
-    Width = 700
+    Width = 691
     Height = 50
     Align = alTop
     TabOrder = 0
@@ -23,8 +23,8 @@ object frmConsultaPadrao: TfrmConsultaPadrao
   object dbgDados: TDBGrid
     Left = 0
     Top = 50
-    Width = 700
-    Height = 300
+    Width = 691
+    Height = 344
     Align = alClient
     TabOrder = 1
     TitleFont.Charset = DEFAULT_CHARSET
@@ -35,8 +35,8 @@ object frmConsultaPadrao: TfrmConsultaPadrao
   end
   object pnlBotoes: TPanel
     Left = 0
-    Top = 350
-    Width = 700
+    Top = 394
+    Width = 691
     Height = 50
     Align = alBottom
     TabOrder = 2
@@ -47,6 +47,7 @@ object frmConsultaPadrao: TfrmConsultaPadrao
       Height = 25
       Caption = 'Filtrar'
       TabOrder = 0
+      OnClick = btnFiltrarClick
     end
     object btnTodos: TButton
       Left = 90
