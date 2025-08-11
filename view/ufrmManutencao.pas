@@ -31,6 +31,7 @@ type
     FDataSource: TDataSource;
     procedure HandleClienteIDExit(Sender: TObject);
     procedure OnDataChangeHandler(Sender: TObject; Field: TField);
+    procedure DesativaCamposCliente;
   public
     { Public declarations }
     constructor Create(AOwner: TComponent; AEntityType:TEntityType; AFormMode:TFormMode;AObject:TObject = nil; ADataSource:TDataSource  = nil); overload;
@@ -137,7 +138,6 @@ begin
             edtEmail.Text := FClienteResult.Email;
             edtTelefone.Text := FClienteResult.Telefone;
             dtpDataCadastro.DateTime := FClienteResult.DataCadastro;
-            pnlCampos.Visible := true;
           end;
         end;
         fmConsult:
@@ -164,10 +164,13 @@ begin
         case FFormMode of
           fmFilter:
           begin
+
             lbPedidoID.Visible:=true;
             edtPedidoID.Visible:= true;
             pnNavigator.Visible:= false;
             btnRestaurar.Visible:= false;
+
+            DesativaCamposCliente;
           end;
           fmInsert:
           begin
@@ -175,6 +178,8 @@ begin
             edtPedidoID.Visible:= false;
             btnRestaurar.Visible:= false;
             pnNavigator.Visible:= false;
+
+            DesativaCamposCliente;
           end;
           fmUpdate:
           begin
@@ -193,10 +198,8 @@ begin
                 edtEmail.Text := FPedidoResult.Cliente.Email;
                 edtTelefone.Text := FPedidoResult.Cliente.Telefone;
                 dtpDataCadastro.DateTime := FPedidoResult.Cliente.DataCadastro;
-                edtNome.Enabled:=false;
-                edtTelefone.Enabled:= false;
-                edtEmail.Enabled:= false;
-                dtpDataCadastro.Enabled:= false;
+
+                DesativaCamposCliente;
                 PreencheCliente;
               end;
             end;
@@ -214,6 +217,18 @@ begin
         end;
       end;
     end;
+  end;
+end;
+
+procedure TfrmManutencao.DesativaCamposCliente;
+begin
+  with FFramePedido.frameCliente1 do
+  begin
+    edtClienteID.OnExit := HandleClienteIDExit;
+    edtTelefone.Enabled:= false;
+    dtpDataCadastro.Enabled:= false;
+    edtEmail.Enabled:= false;
+    edtNome.Enabled:= false;
   end;
 end;
 

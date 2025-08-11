@@ -87,7 +87,7 @@ begin
         frmManutencao := TFrmManutencao.Create(self, FEntityType, fmUpdate, Cliente);
         if (frmManutencao.ShowModal = mrOk) then
         begin
-          if (FClienteController.UpdateCliente(Cliente)) then
+          if (FClienteController.UpdateCliente(frmManutencao.ClienteResult)) then
             Application.MessageBox(PChar('O Cliente ' + frmManutencao.ClienteResult.ClienteID.ToString + ' foi alterado com sucesso!'), 'Sucesso', MB_OK or MB_ICONINFORMATION)
           else
             Application.MessageBox(PChar('Erro ao alterar o Cliente'), 'Erro', MB_OK or MB_ICONERROR);

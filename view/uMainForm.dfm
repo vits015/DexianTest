@@ -2,7 +2,7 @@ object frmPrincipal: TfrmPrincipal
   Left = 0
   Top = 0
   BorderStyle = bsSizeToolWin
-  Caption = 'frmPrincipal'
+  Caption = 'Principal'
   ClientHeight = 303
   ClientWidth = 624
   Color = clBtnFace
@@ -12,6 +12,7 @@ object frmPrincipal: TfrmPrincipal
   Font.Name = 'Segoe UI'
   Font.Style = []
   Position = poScreenCenter
+  OnClose = FormClose
   TextHeight = 15
   object btnCadastroClientes: TBitBtn
     AlignWithMargins = True
