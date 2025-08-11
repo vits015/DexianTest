@@ -99,11 +99,10 @@ object framePedido: TframePedido
         TabOrder = 0
         inherited pnlCampos: TPanel
           Width = 615
-          Height = 24
+          Height = 209
           StyleElements = [seFont, seClient, seBorder]
           ExplicitLeft = 0
-          ExplicitTop = 185
-          ExplicitHeight = 198
+          ExplicitHeight = 210
           inherited lblClienteID: TLabel
             StyleElements = [seFont, seClient, seBorder]
           end
@@ -130,40 +129,6 @@ object framePedido: TframePedido
             StyleElements = [seFont, seClient, seBorder]
           end
           inherited edtEmail: TEdit
-            StyleElements = [seFont, seClient, seBorder]
-          end
-        end
-        inherited pnlConsulta: TPanel
-          Width = 615
-          StyleElements = [seFont, seClient, seBorder]
-          inherited Label1: TLabel
-            StyleElements = [seFont, seClient, seBorder]
-          end
-          inherited Label2: TLabel
-            StyleElements = [seFont, seClient, seBorder]
-          end
-          inherited Label3: TLabel
-            StyleElements = [seFont, seClient, seBorder]
-          end
-          inherited Label4: TLabel
-            StyleElements = [seFont, seClient, seBorder]
-          end
-          inherited Label5: TLabel
-            StyleElements = [seFont, seClient, seBorder]
-          end
-          inherited dbedtClienteID: TDBEdit
-            StyleElements = [seFont, seClient, seBorder]
-          end
-          inherited dbedtNome: TDBEdit
-            StyleElements = [seFont, seClient, seBorder]
-          end
-          inherited dbedtTelefone: TDBEdit
-            StyleElements = [seFont, seClient, seBorder]
-          end
-          inherited dbedtEmail: TDBEdit
-            StyleElements = [seFont, seClient, seBorder]
-          end
-          inherited dbedtDataCadastro: TDBEdit
             StyleElements = [seFont, seClient, seBorder]
           end
         end
