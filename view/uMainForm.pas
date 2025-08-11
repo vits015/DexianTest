@@ -8,13 +8,10 @@ uses
   FireDAC.Stan.Intf, FireDAC.Stan.Option, FireDAC.Stan.Param,
   FireDAC.Stan.Error, FireDAC.DatS, FireDAC.Phys.Intf, FireDAC.DApt.Intf,
   FireDAC.Stan.Async, FireDAC.DApt, Data.DB, FireDAC.Comp.DataSet,
-  FireDAC.Comp.Client, uDataModule, frxDBSet;
+  FireDAC.Comp.Client, uDataModule, frxDBSet, Vcl.Buttons;
 
 type
   TfrmPrincipal = class(TForm)
-    btnCadastroClientes: TButton;
-    btnCadastroFuncionarios: TButton;
-    btnRelatorio: TButton;
     QryClientes: TFDQuery;
     dsClientes: TDataSource;
     frxDBDsClientes: TfrxDBDataset;
@@ -22,8 +19,11 @@ type
     qryPedidos: TFDQuery;
     dsPedidos: TDataSource;
     frxDBDsPedidos: TfrxDBDataset;
+    btnCadastroClientes: TBitBtn;
+    btnRelatorio: TBitBtn;
+    btnCadastroPedidos: TBitBtn;
     procedure btnCadastroClientesClick(Sender: TObject);
-    procedure btnCadastroFuncionariosClick(Sender: TObject);
+    procedure btnCadastroPedidosClick(Sender: TObject);
     procedure btnRelatorioClick(Sender: TObject);
   private
     { Private declarations }
@@ -40,7 +40,7 @@ implementation
 
 uses ufrmConsulta;
 
-procedure TfrmPrincipal.btnCadastroFuncionariosClick(Sender: TObject);
+procedure TfrmPrincipal.btnCadastroPedidosClick(Sender: TObject);
 var
   frmConsultaPedido: TfrmConsulta;
 begin

@@ -1,6 +1,6 @@
 object DM: TDM
-  Height = 480
-  Width = 640
+  Height = 147
+  Width = 162
   object FDConnection: TFDConnection
     ConnectionName = 'Connection'
     Params.Strings = (
@@ -13,12 +13,12 @@ object DM: TDM
       'DriverID=MSSQL')
     Connected = True
     LoginPrompt = False
-    Left = 144
-    Top = 184
+    Left = 56
+    Top = 56
   end
   object DriverLink: TFDPhysMSSQLDriverLink
     ODBCDriver = 'SQL Server'
-    Left = 144
-    Top = 144
+    Left = 56
+    Top = 16
   end
 end

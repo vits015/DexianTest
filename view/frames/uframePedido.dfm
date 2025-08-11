@@ -102,7 +102,8 @@ object framePedido: TframePedido
           Height = 209
           StyleElements = [seFont, seClient, seBorder]
           ExplicitLeft = 0
-          ExplicitHeight = 210
+          ExplicitWidth = 537
+          ExplicitHeight = 209
           inherited lblClienteID: TLabel
             StyleElements = [seFont, seClient, seBorder]
           end
@@ -120,7 +121,6 @@ object framePedido: TframePedido
           end
           inherited edtClienteID: TEdit
             StyleElements = [seFont, seClient, seBorder]
-            OnExit = frameCliente1edtClienteIDExit
           end
           inherited edtNome: TEdit
             StyleElements = [seFont, seClient, seBorder]

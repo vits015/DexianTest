@@ -1,7 +1,7 @@
 object frameCliente: TframeCliente
   Left = 0
   Top = 0
-  Width = 640
+  Width = 465
   Height = 210
   Align = alClient
   Color = clWhite
@@ -16,7 +16,7 @@ object frameCliente: TframeCliente
   object pnlCampos: TPanel
     Left = 0
     Top = 0
-    Width = 640
+    Width = 465
     Height = 210
     Align = alClient
     BevelOuter = bvNone
@@ -24,6 +24,7 @@ object frameCliente: TframeCliente
     ParentBackground = False
     TabOrder = 0
     ExplicitLeft = 240
+    ExplicitWidth = 640
     ExplicitHeight = 383
     object lblClienteID: TLabel
       Left = 16
