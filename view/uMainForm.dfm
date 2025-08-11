@@ -3,8 +3,8 @@ object frmPrincipal: TfrmPrincipal
   Top = 0
   BorderStyle = bsSizeToolWin
   Caption = 'Principal'
-  ClientHeight = 303
-  ClientWidth = 624
+  ClientHeight = 388
+  ClientWidth = 630
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -13,13 +13,14 @@ object frmPrincipal: TfrmPrincipal
   Font.Style = []
   Position = poScreenCenter
   OnClose = FormClose
+  OnCreate = FormCreate
   TextHeight = 15
   object btnCadastroClientes: TBitBtn
     AlignWithMargins = True
     Left = 10
     Top = 20
     Width = 191
-    Height = 263
+    Height = 348
     Margins.Left = 10
     Margins.Top = 20
     Margins.Right = 5
@@ -139,8 +140,8 @@ object frmPrincipal: TfrmPrincipal
     AlignWithMargins = True
     Left = 211
     Top = 20
-    Width = 211
-    Height = 263
+    Width = 217
+    Height = 348
     Margins.Left = 5
     Margins.Top = 20
     Margins.Right = 5
@@ -255,17 +256,13 @@ object frmPrincipal: TfrmPrincipal
     ParentFont = False
     TabOrder = 1
     OnClick = btnRelatorioClick
-    ExplicitLeft = 392
-    ExplicitTop = 8
-    ExplicitWidth = 75
-    ExplicitHeight = 25
   end
   object btnCadastroPedidos: TBitBtn
     AlignWithMargins = True
-    Left = 432
+    Left = 438
     Top = 20
     Width = 187
-    Height = 263
+    Height = 348
     Margins.Left = 5
     Margins.Top = 20
     Margins.Right = 5
@@ -382,16 +379,14 @@ object frmPrincipal: TfrmPrincipal
     OnClick = btnCadastroPedidosClick
   end
   object QryClientes: TFDQuery
-    Active = True
-    Connection = DM.FDConnection
     SQL.Strings = (
       'SELECT * FROM Clientes C')
-    Left = 552
+    Left = 520
     Top = 264
   end
   object dsClientes: TDataSource
     DataSet = QryClientes
-    Left = 552
+    Left = 520
     Top = 312
   end
   object frxDBDsClientes: TfrxDBDataset
@@ -400,7 +395,7 @@ object frmPrincipal: TfrmPrincipal
     DataSource = dsClientes
     BCDToCurrency = False
     DataSetOptions = []
-    Left = 552
+    Left = 520
     Top = 352
   end
   object Relatorio: TfrxReport
@@ -412,14 +407,14 @@ object frmPrincipal: TfrmPrincipal
     PrintOptions.Printer = 'Default'
     PrintOptions.PrintOnSheet = 0
     ReportOptions.CreateDate = 45879.902929016200000000
-    ReportOptions.LastChange = 45879.950177662040000000
+    ReportOptions.LastChange = 45879.950177662000000000
     ScriptLanguage = 'PascalScript'
     ScriptText.Strings = (
       'begin'
       ''
       'end.')
-    Left = 408
-    Top = 320
+    Left = 512
+    Top = 112
     Datasets = <
       item
         DataSet = frxDBDsClientes
@@ -1178,8 +1173,6 @@ object frmPrincipal: TfrmPrincipal
     end
   end
   object qryPedidos: TFDQuery
-    Active = True
-    Connection = DM.FDConnection
     SQL.Strings = (
       
         'SELECT P.PedidoID, p.ClienteID, c.nome as ClienteNome, cast(p.Da' +

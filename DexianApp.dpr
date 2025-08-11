@@ -10,7 +10,6 @@ uses
   uPedidoDAO in 'model\dao\uPedidoDAO.pas',
   uClienteDAO in 'model\dao\uClienteDAO.pas',
   uClienteController in 'controller\uClienteController.pas',
-  uFuncoesGenericas in 'uFuncoesGenericas.pas',
   ufrmManutencao in 'view\ufrmManutencao.pas' {frmManutencao},
   uTypes in 'utils\uTypes.pas',
   uframeCliente in 'view\frames\uframeCliente.pas' {frameCliente: TFrame},

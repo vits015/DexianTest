@@ -27,6 +27,7 @@ type
     procedure btnRelatorioClick(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure AbrirPortfolio;
+    procedure FormCreate(Sender: TObject);
   private
     { Private declarations }
   public
@@ -62,6 +63,15 @@ begin
     'Será um prazer receber sua visita no meu portfólio!'
   );
   AbrirPortfolio;
+end;
+
+procedure TfrmPrincipal.FormCreate(Sender: TObject);
+var
+  DM: TDM;
+begin
+  DM:= TDM.Create(self);
+  QryClientes.Connection:= DM.FDConnection;
+  QryPedidos.Connection:= DM.FDConnection;
 end;
 
 procedure TfrmPrincipal.AbrirPortfolio;
