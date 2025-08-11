@@ -37,8 +37,8 @@ Contém arquivos de relatórios gerados pelo **FastReport**.
 ### **📁 /database**
 Scripts e backups do banco de dados SQL Server.
 
-- **backup_teste.bak**  
-  Backup completo do banco para restauração no SQL Server.
+- **DexianDB.bak**  
+  Backup completo do banco para restauração no SQL Server (necessário descompactar).
 
 ---
 
